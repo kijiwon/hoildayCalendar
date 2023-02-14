@@ -1,0 +1,19 @@
+*{
+    box-sizing: border-box;
+  }
+.list{
+    width: 280px;
+    height: 400px;
+    padding: 20px;
+    border: 2px solid rgb(97, 92, 201);
+    box-shadow: 3px 3px 3px rgb(74, 77, 114);
+}
+.holiday{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.btnClose{
+    margin-right: 70px;
+}

@@ -10,17 +10,24 @@ function App() {
   const [year, setYear]= useState('');
   const [month, setMonth] = useState('');
   const url = `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?solYear=${year}&solMonth=${month}&ServiceKey=871FzwAfTTqVJewFZSr8rPUe2p%2F%2BjEGAaGwjC%2FNDGeHLhfE0%2FuCBIw8vbsiYOBndXZzXg484yvlTiUgg3lprAA%3D%3D`
+  const [holidayData, setHolidayData] = useState(null); // 데이터가 없는 상태
+
   const getHoliday = async()=>{
     try{
       const data = await axios({
       method:'get',
       url : url
+
     })
-    console.log(data)
+    setHolidayData(data.data.response.body.items)
+    // console.log(data.data.response.body)
+    console.log(typeof holidayData,holidayData)
     } catch(err){
       console.log('error')
     }
+
   }
+
   return (
     <div className="App">
       <header>
@@ -41,10 +48,12 @@ function App() {
           />
           <span>월</span>
         </div>
-        <h2>의 공휴일</h2>
-        <BsFillArrowRightSquareFill onClick={getHoliday}/>
+        <div className='bottom'>
+          <h2>의 공휴일</h2>
+          <BsFillArrowRightSquareFill onClick={getHoliday}/>
+        </div>
       </header>
-      <HolidayList/>
+      <HolidayList holidayData={holidayData}/>
     </div>
   );
 }
