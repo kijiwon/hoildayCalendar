@@ -10,7 +10,7 @@ function App() {
   const [year, setYear]= useState('');
   const [month, setMonth] = useState('');
   const url = `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?solYear=${year}&solMonth=${month}&ServiceKey=871FzwAfTTqVJewFZSr8rPUe2p%2F%2BjEGAaGwjC%2FNDGeHLhfE0%2FuCBIw8vbsiYOBndXZzXg484yvlTiUgg3lprAA%3D%3D`
-  const [holidayData, setHolidayData] = useState(null); // 데이터가 없는 상태
+  const [holidayData, setHolidayData] = useState({}); // 데이터가 없는 상태
 
   const getHoliday = async()=>{
     try{
