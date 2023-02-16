@@ -1,9 +1,9 @@
 import React from "react";
 
-function Holiday({dataName,locdate}){
+function Holiday({dateName,locdate}){
     return(
         <div>
-            <div>{dataName}</div>
+            <div>{dateName}</div>
             <div>{locdate}</div>
         </div>
     )
