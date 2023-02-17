@@ -19,28 +19,22 @@ function App() {
       url : url
 
     })
+    
     setHolidayData(data.data.response.body.items)
     console.log(typeof holidayData,holidayData)
     // setHolidayData([])
+    if(holidayData===undefined){
+      setHolidayData([])
+    } 
     } catch(err){
       console.log('error')
     }
 
   }
-  // const getHoliday = ()=>{
-  //   axios.get(url)
-  //   .then((data)=>{
-  //     console.log(data.data)
-  //     return data.data
-  //   })
-  //   .then((result)=>{
-      
-  //   })
-  // }
   useEffect(()=>{
     console.log('날짜가 바뀌었다')
   },[])
-  const btnClose = ()=>{
+  const btnClose = function(){
     setHolidayData([])
   }
   return (
@@ -68,7 +62,7 @@ function App() {
           <BsFillArrowRightSquareFill onClick={getHoliday}/>
         </div>
       </header>
-      <HolidayList holidayData={holidayData} btnClose={btnClose} year={year} month={month}/>
+      <HolidayList holidayData={holidayData} setHolidayData={setHolidayData} btnClose={btnClose} year={year} month={month}/>
     </div>
   );
 }
