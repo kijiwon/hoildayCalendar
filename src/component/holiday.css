@@ -2,12 +2,11 @@
     box-sizing: border-box;
   }
 .list{
-    /* display: none; */
     width: 280px;
     height: 400px;
     padding: 20px;
     border: 2px solid rgb(97, 92, 201);
-    box-shadow: 3px 3px 3px rgb(74, 77, 114);
+    border-radius: 0px 20px 20px 0px;
 }
 .holiday{
     display: flex;

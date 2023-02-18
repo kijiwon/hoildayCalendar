@@ -13,6 +13,7 @@ function App() {
   const url = `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?solYear=${year}&solMonth=${month}&ServiceKey=871FzwAfTTqVJewFZSr8rPUe2p%2F%2BjEGAaGwjC%2FNDGeHLhfE0%2FuCBIw8vbsiYOBndXZzXg484yvlTiUgg3lprAA%3D%3D`
   const [holidayData, setHolidayData] = useState([]); // 데이터가 없는 상태
 
+  // 버튼 클릭시 api호출
   const getHoliday = async()=>{
     try{
       const data = await axios({
@@ -26,15 +27,20 @@ function App() {
     if(holidayData===undefined){
       setHolidayData([])
     } 
-    } catch(err){
-      console.log('error')
-    }
+  } catch(err){
+    console.log('error')
+  }
 
   }
-  useEffect(()=>{
-    console.log('날짜가 바뀌었다')
-  },[])
 
+  // 슬라이더 클래스 변경
+  const [className,setClassName]=useState('show-main');
+  // const [showMain, setShowMain] = useState(false);
+  const [showResult, setShowResult] = useState(false);
+  // 상태에 따라 슬라이드 움직이기
+  useEffect(() => {
+    setClassName(`${showResult ? "show-result" : "show-main"}`);
+  }, [showResult]);
   return (
     <div className="App">
       <header>
@@ -57,10 +63,13 @@ function App() {
         </div>
         <div className='bottom'>
           <h2>의 공휴일</h2>
-          <BsFillArrowRightSquareFill onClick={getHoliday}/>
+          <BsFillArrowRightSquareFill onClick={()=>{getHoliday(); setShowResult(showResult => !showResult)}}/>
         </div>
       </header>
-      <HolidayList holidayData={holidayData} year={year} month={month}/>
+      <div className={className}>
+        slider
+      </div>
+      <HolidayList holidayData={holidayData} year={year} month={month} setShowResult={setShowResult}/>
     </div>
   );
 }
