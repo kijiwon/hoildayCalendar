@@ -7,6 +7,7 @@ function App() {
   // 현재 기온 api
   // const url = `https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=1329c99004752da584b7ba8078fe61cc`
   // 년도 선택
+  // https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?serviceKey=871FzwAfTTqVJewFZSr8rPUe2p%2F%2BjEGAaGwjC%2FNDGeHLhfE0%2FuCBIw8vbsiYOBndXZzXg484yvlTiUgg3lprAA%3D%3D&solYear=2020&solMonth=08
   const [year, setYear]= useState('');
   const [month, setMonth] = useState('');
   const url = `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?solYear=${year}&solMonth=${month}&ServiceKey=871FzwAfTTqVJewFZSr8rPUe2p%2F%2BjEGAaGwjC%2FNDGeHLhfE0%2FuCBIw8vbsiYOBndXZzXg484yvlTiUgg3lprAA%3D%3D`
@@ -19,10 +20,9 @@ function App() {
       url : url
 
     })
-    
+    // console.log(data.data.response.body)
     setHolidayData(data.data.response.body.items)
-    console.log(typeof holidayData,holidayData)
-    // setHolidayData([])
+
     if(holidayData===undefined){
       setHolidayData([])
     } 
@@ -34,9 +34,7 @@ function App() {
   useEffect(()=>{
     console.log('날짜가 바뀌었다')
   },[])
-  const btnClose = function(){
-    setHolidayData([])
-  }
+
   return (
     <div className="App">
       <header>
@@ -62,7 +60,7 @@ function App() {
           <BsFillArrowRightSquareFill onClick={getHoliday}/>
         </div>
       </header>
-      <HolidayList holidayData={holidayData} setHolidayData={setHolidayData} btnClose={btnClose} year={year} month={month}/>
+      <HolidayList holidayData={holidayData} year={year} month={month}/>
     </div>
   );
 }

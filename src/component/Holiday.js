@@ -1,4 +1,5 @@
 import React from "react";
+import './holiday.css'
 
 function Holiday({dateName,locdate}){
     return(
