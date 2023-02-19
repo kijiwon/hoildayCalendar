@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/kijiwon/project---holiday-calendar.git/static/css/main.3578a4df.css",
+    "main.js": "/kijiwon/project---holiday-calendar.git/static/js/main.2e19a289.js",
+    "static/media/배경.jpg": "/kijiwon/project---holiday-calendar.git/static/media/배경.6e035bec49fcdf682119.jpg",
+    "index.html": "/kijiwon/project---holiday-calendar.git/index.html",
+    "main.3578a4df.css.map": "/kijiwon/project---holiday-calendar.git/static/css/main.3578a4df.css.map",
+    "main.2e19a289.js.map": "/kijiwon/project---holiday-calendar.git/static/js/main.2e19a289.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3578a4df.css",
+    "static/js/main.2e19a289.js"
+  ]
+}
