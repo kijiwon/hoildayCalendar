@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 *{
   box-sizing: border-box;
+  font-family: 'Do Hyeon', sans-serif;
 }
 body{
   height: 100vh;
@@ -8,6 +10,7 @@ body{
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  background-color: #e6e6e6;
 }
 .App {
   display: flex;
@@ -16,16 +19,18 @@ body{
 }
 
 header{
-  width: 280px;
+  width: 300px;
   height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 5px solid slateblue;
+  background-color: #fff;
+  /* border: 5px solid slateblue; */
+  box-shadow: 3px 3px 10px slategray; 
   border-radius: 20px 0px 0px 20px;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 400;
 }
 input{
   width: 50px;
@@ -42,20 +47,49 @@ input{
 }
 h2{
   margin-right: 20px;
+  font-weight: 500;
+  
 }
 .show-main{
-  width: 280px;
+  width: 300px;
   height: 400px;
-  background-color: #eeb5b531;
+  background-color: #fff;
+  background-image: url('./배경.jpg');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size:contain;
+  border-radius: 0px 20px 20px 0px;
   position: absolute;
-  transform: translateX(280px);
+  transform: translateX(300px);
   transition: all 1s;
 }
 .show-result{
-  width: 280px;
+  width: 300px;
   height: 400px;
-  background-color: #eeb5b531;
+  background-color: #fff;
+  background-image: url('./배경.jpg');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size:contain;
+  border-radius: 20px 0px 0px 20px;
   position: absolute;
   transform: translateX(0px);
   transition: all 1s;
+}
+.input-box{
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+}
+h1{
+  font-size: 38px;
+  margin-bottom: 60px;
+  font-weight: 500;
+}
+span{
+  padding-top: 3px;
+}
+.btnShow{
+  width: 30px;
+  height: 30px;
 }

@@ -9,11 +9,10 @@ function HolidayList({holidayData,year, month,setShowResult}){
     return (
         <div className="list">
             <h3>{year}년 {month}월의 공휴일</h3>
-            {item!==undefined && item.length>=0? <span>{item.length}</span>:<span></span>}
+            {item!==undefined? (Array.isArray(item)!==true? <p className="cnt">1개</p>:<p className="cnt">{item.length}개</p>):<p className="cnt">0개!!!!</p>}
+            <BsFillArrowLeftSquareFill className="btnClose" onClick={() => setShowResult(showResult => !showResult)}/>
             <div className="holiday">
-                <BsFillArrowLeftSquareFill className="btnClose" onClick={() => setShowResult(showResult => !showResult)}/>
-                <div>
-                    <p>2023/09/00 - 추석</p>
+                <div className="result-list">
                     {item!==undefined? (
                         Array.isArray(item)!==true?
                         <Holiday dateName={item.dateName} locdate={item.locdate}/>:
