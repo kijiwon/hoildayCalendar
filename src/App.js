@@ -41,10 +41,14 @@ const MovePageButton = styled.button`
   text-align: center;
   border: none;
   border-radius: 20px;
-  box-shadow: 0px 3px 3px 2px #5a6b5d;
+  box-shadow: 0px 3px 3px 2px ${COLOR.button_shadow};
   background-color: ${COLOR.main_yellow};
   font-size: 18px;
   font-weight: 600;
+  :hover {
+    background-color: ${COLOR.main_yellow_hover};
+    box-shadow: -3px 0px -3px 3px ${COLOR.button_shadow};
+  }
 `;
 
 const SecondContainer = styled.div`

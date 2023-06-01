@@ -7,4 +7,6 @@ export const SIZE = {
 export const COLOR = {
   main_green: '#B8CABA',
   main_yellow: '#F9F68A',
+  main_yellow_hover: '#f8f36d',
+  button_shadow: '#5A6B5D',
 };
