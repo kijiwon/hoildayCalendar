@@ -7,6 +7,10 @@ const Main = styled.main`
   width: 100%;
   min-width: 360px;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: ${COLOR.main_green};
 `;
 
