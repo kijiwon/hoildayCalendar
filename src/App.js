@@ -1,7 +1,10 @@
+/* eslint-disable no-undef */
 /* eslint-disable import/no-unresolved */
 import styled from 'styled-components';
 import useMoveScroll from './hooks/useMoveScroll';
 import { COLOR } from './style/Theme';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Main = styled.main`
   width: 100%;
@@ -62,11 +65,31 @@ const SecondContainer = styled.div`
 
 function App() {
   const { element, onMoveToElement } = useMoveScroll();
-  // const [year, setYear]= useState('');
-  // const [month, setMonth] = useState('');
-  // const url = `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?solYear=${year}&solMonth=${month}&ServiceKey=${process.env.REACT_APP_SERVICE_KEY}`
-  // const [holidayData, setHolidayData] = useState([]);
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  console.log(setMonth, setYear);
+  const formatMonth = (month) => {
+    return month < 10 ? '0' + month : month;
+  };
 
+  // const url = `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?solYear=${year}&solMonth=${month}&ServiceKey=871FzwAfTTqVJewFZSr8rPUe2p%2F%2BjEGAaGwjC%2FNDGeHLhfE0%2FuCBIw8vbsiYOBndXZzXg484yvlTiUgg3lprAA%3D%3D`;
+  const [holidayData, setHolidayData] = useState([]);
+  useEffect(() => {
+    axios
+      .get(
+        `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?solYear=${year}&solMonth=${formatMonth(
+          month
+        )}&ServiceKey=${process.env.REACT_APP_SERVICE_KEY}`
+      )
+      .then((res) => {
+        console.log(res.data);
+        setHolidayData(res.data.response.body.items);
+        console.log(holidayData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   // // 버튼 클릭시 api호출
   // const getHoliday = ()=>{
   //   axios
