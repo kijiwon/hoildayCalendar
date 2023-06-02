@@ -72,7 +72,6 @@ function App() {
     return month < 10 ? '0' + month : month;
   };
 
-  // const url = `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?solYear=${year}&solMonth=${month}&ServiceKey=871FzwAfTTqVJewFZSr8rPUe2p%2F%2BjEGAaGwjC%2FNDGeHLhfE0%2FuCBIw8vbsiYOBndXZzXg484yvlTiUgg3lprAA%3D%3D`;
   const [holidayData, setHolidayData] = useState([]);
   useEffect(() => {
     axios
