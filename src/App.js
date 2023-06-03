@@ -5,6 +5,9 @@ import useMoveScroll from './hooks/useMoveScroll';
 import { COLOR } from './style/Theme';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { useQuery, queryClient } from 'react-query';
 
 const Main = styled.main`
   width: 100%;
@@ -61,7 +64,12 @@ const MovePageButton = styled.button`
 const SecondContainer = styled.div`
   width: 100%;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
+
+const CalendarContainer = styled.main``;
 
 function App() {
   const { element, onMoveToElement } = useMoveScroll();
@@ -72,6 +80,39 @@ function App() {
     return month < 10 ? '0' + month : month;
   };
 
+  const { isLoading, isError, data, error } = useQuery(
+    ['date'],
+    async () => {
+      try {
+        const response = await axios.get(
+          `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?solYear=${year}&solMonth=${formatMonth(
+            month
+          )}&ServiceKey=${process.env.REACT_APP_SERVICE_KEY}`
+        );
+        return response.data.response.body.items;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
+    {
+      ...queryClient.defaultQueryObserverOptions(),
+      refetchOnWindowFocus: false,
+      retry: 0,
+      onSuccess: (data) => {
+        console.log(data);
+      },
+      onError: (e) => {
+        console.log(e.message);
+      },
+    }
+  );
+
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
   const [holidayData, setHolidayData] = useState([]);
   useEffect(() => {
     axios
@@ -89,23 +130,6 @@ function App() {
         console.log(err);
       });
   }, []);
-  // // 버튼 클릭시 api호출
-  // const getHoliday = ()=>{
-  //   axios
-  //   .get(url)
-  //   .then((res)=>{
-  //     // console.log(res.data.response.body.items.item)
-  //     const data =res.data.response.body.items
-  //     if(data===undefined){
-  //       setHolidayData([])
-  //     }
-  //     setHolidayData(data)
-  //   })
-  //   .catch((err)=>{
-  //     console.log(err)
-  //   })
-  // }
-  // console.log(holidayData)
 
   return (
     <Main>
@@ -117,7 +141,14 @@ function App() {
         <MovePageButton onClick={onMoveToElement}>확인하러 가기</MovePageButton>
       </FirstContainer>
       <SecondContainer ref={element}>
-        <p>here!</p>
+        <CalendarContainer>
+          <Calendar />
+          <ul>
+            {data.map((date) => {
+              <li key={date.id}>{date.name}</li>;
+            })}
+          </ul>
+        </CalendarContainer>
       </SecondContainer>
     </Main>
   );
