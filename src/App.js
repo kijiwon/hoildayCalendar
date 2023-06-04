@@ -5,8 +5,6 @@ import useMoveScroll from './hooks/useMoveScroll';
 import { COLOR } from './style/Theme';
 import { useState } from 'react';
 import axios from 'axios';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import { useQuery } from 'react-query';
 
 const Main = styled.main`
@@ -69,8 +67,6 @@ const SecondContainer = styled.div`
   align-items: center;
 `;
 
-const CalendarContainer = styled.main``;
-
 function App() {
   const { element, onMoveToElement } = useMoveScroll();
   const [year, setYear] = useState(new Date().getFullYear());
@@ -112,7 +108,7 @@ function App() {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-  console.log(data);
+  console.log(data.item);
 
   return (
     <Main>
@@ -123,16 +119,7 @@ function App() {
         </Title>
         <MovePageButton onClick={onMoveToElement}>확인하러 가기</MovePageButton>
       </FirstContainer>
-      <SecondContainer ref={element}>
-        <CalendarContainer>
-          <Calendar />
-          <ul>
-            {/* {data.map((date) => {
-              <li key={date.id}>{date.name}</li>;
-            })} */}
-          </ul>
-        </CalendarContainer>
-      </SecondContainer>
+      <SecondContainer ref={element}></SecondContainer>
     </Main>
   );
 }
