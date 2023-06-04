@@ -3,11 +3,11 @@
 import styled from 'styled-components';
 import useMoveScroll from './hooks/useMoveScroll';
 import { COLOR } from './style/Theme';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { useQuery, queryClient } from 'react-query';
+import { useQuery } from 'react-query';
 
 const Main = styled.main`
   width: 100%;
@@ -95,7 +95,6 @@ function App() {
       }
     },
     {
-      ...queryClient.defaultQueryObserverOptions(),
       refetchOnWindowFocus: false,
       retry: 0,
       onSuccess: (data) => {
@@ -113,23 +112,7 @@ function App() {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-  const [holidayData, setHolidayData] = useState([]);
-  useEffect(() => {
-    axios
-      .get(
-        `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?solYear=${year}&solMonth=${formatMonth(
-          month
-        )}&ServiceKey=${process.env.REACT_APP_SERVICE_KEY}`
-      )
-      .then((res) => {
-        console.log(res.data);
-        setHolidayData(res.data.response.body.items);
-        console.log(holidayData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  console.log(data);
 
   return (
     <Main>
@@ -144,9 +127,9 @@ function App() {
         <CalendarContainer>
           <Calendar />
           <ul>
-            {data.map((date) => {
+            {/* {data.map((date) => {
               <li key={date.id}>{date.name}</li>;
-            })}
+            })} */}
           </ul>
         </CalendarContainer>
       </SecondContainer>
