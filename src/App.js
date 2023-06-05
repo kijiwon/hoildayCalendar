@@ -6,6 +6,7 @@ import { COLOR } from './style/Theme';
 import { useState } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import moment from 'moment/moment';
 
 const Main = styled.main`
   width: 100%;
@@ -69,6 +70,8 @@ const SecondContainer = styled.div`
 
 function App() {
   const { element, onMoveToElement } = useMoveScroll();
+  const [getMoment, setMoment] = useState(moment());
+  const today = getMoment;
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   console.log(setMonth, setYear);
@@ -119,7 +122,25 @@ function App() {
         </Title>
         <MovePageButton onClick={onMoveToElement}>확인하러 가기</MovePageButton>
       </FirstContainer>
-      <SecondContainer ref={element}></SecondContainer>
+      <SecondContainer ref={element}>
+        <div className="control">
+          <button
+            onClick={() => {
+              setMoment(getMoment.clone().subtract(1, 'month'));
+            }}
+          >
+            이전달
+          </button>
+          <span>{today.format('YYYY 년 MM 월')}</span>
+          <button
+            onClick={() => {
+              setMoment(getMoment.clone().add(1, 'month'));
+            }}
+          >
+            다음달
+          </button>
+        </div>
+      </SecondContainer>
     </Main>
   );
 }
