@@ -68,10 +68,12 @@ const SecondContainer = styled.div`
   align-items: center;
 `;
 
+const Toolbar = styled.div``;
+
 function App() {
   const { element, onMoveToElement } = useMoveScroll();
-  const [getMoment, setMoment] = useState(moment());
-  const today = getMoment;
+  const [today, setMoment] = useState(moment());
+  // const today = getMoment;
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   console.log(setMonth, setYear);
@@ -123,23 +125,29 @@ function App() {
         <MovePageButton onClick={onMoveToElement}>확인하러 가기</MovePageButton>
       </FirstContainer>
       <SecondContainer ref={element}>
-        <div className="control">
+        <Toolbar>
           <button
             onClick={() => {
-              setMoment(getMoment.clone().subtract(1, 'month'));
+              setMoment(today.clone().subtract(1, 'month'));
             }}
           >
             이전달
           </button>
-          <span>{today.format('YYYY 년 MM 월')}</span>
           <button
             onClick={() => {
-              setMoment(getMoment.clone().add(1, 'month'));
+              setMoment(moment());
+            }}
+          >
+            {today.format('YYYY 년 MM 월')}
+          </button>
+          <button
+            onClick={() => {
+              setMoment(today.clone().add(1, 'month'));
             }}
           >
             다음달
           </button>
-        </div>
+        </Toolbar>
       </SecondContainer>
     </Main>
   );
