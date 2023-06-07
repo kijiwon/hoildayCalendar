@@ -6,7 +6,7 @@ import { COLOR } from './style/Theme';
 import { useState } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
-import moment from 'moment/moment';
+import Calendar from './component/Calendar';
 
 const Main = styled.main`
   width: 100%;
@@ -68,12 +68,9 @@ const SecondContainer = styled.div`
   align-items: center;
 `;
 
-const Toolbar = styled.div``;
-
 function App() {
   const { element, onMoveToElement } = useMoveScroll();
-  const [today, setMoment] = useState(moment());
-  // const today = getMoment;
+
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   console.log(setMonth, setYear);
@@ -125,29 +122,7 @@ function App() {
         <MovePageButton onClick={onMoveToElement}>확인하러 가기</MovePageButton>
       </FirstContainer>
       <SecondContainer ref={element}>
-        <Toolbar>
-          <button
-            onClick={() => {
-              setMoment(today.clone().subtract(1, 'month'));
-            }}
-          >
-            이전달
-          </button>
-          <button
-            onClick={() => {
-              setMoment(moment());
-            }}
-          >
-            {today.format('YYYY 년 MM 월')}
-          </button>
-          <button
-            onClick={() => {
-              setMoment(today.clone().add(1, 'month'));
-            }}
-          >
-            다음달
-          </button>
-        </Toolbar>
+        <Calendar></Calendar>
       </SecondContainer>
     </Main>
   );
