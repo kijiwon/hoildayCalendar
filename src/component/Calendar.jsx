@@ -2,10 +2,15 @@ import styled from 'styled-components';
 import moment from 'moment/moment';
 import { useState } from 'react';
 
+const Container = styled.main``;
 const Toolbar = styled.div``;
+const CalendarTable = styled.table``;
+const Week = styled.tr``;
+const Days = styled.tbody``;
 
 const Calendar = () => {
-  const [today, setMoment] = useState(moment());
+  const currentMonth = moment().format('YYYY-MM');
+  const [today, setMoment] = useState(moment(currentMonth));
   const firstWeek = today.clone().startOf('month').week();
   const lastWeek =
     today.clone().endOf('month').week() === 1
@@ -53,12 +58,14 @@ const Calendar = () => {
     }
     return result;
   };
+
+  console.log(currentMonth);
   return (
-    <div>
+    <Container>
       <Toolbar>
         <button
           onClick={() => {
-            setMoment(today.clone().subtract(1, 'month'));
+            setMoment(moment(today).subtract(1, 'month').format('YYYY-MM'));
           }}
         >
           이전달
@@ -72,25 +79,27 @@ const Calendar = () => {
         </button>
         <button
           onClick={() => {
-            setMoment(today.clone().add(1, 'month'));
+            setMoment(moment(today).add(1, 'month').format('YYYY-MM'));
           }}
         >
           다음달
         </button>
       </Toolbar>
-      <table>
-        <tr>
-          <th>일</th>
-          <th>월</th>
-          <th>화</th>
-          <th>수</th>
-          <th>목</th>
-          <th>금</th>
-          <th>토</th>
-        </tr>
-        <tbody>{calendarArr()}</tbody>
-      </table>
-    </div>
+      <CalendarTable>
+        <Days>
+          <Week>
+            <th>일</th>
+            <th>월</th>
+            <th>화</th>
+            <th>수</th>
+            <th>목</th>
+            <th>금</th>
+            <th>토</th>
+          </Week>
+          {calendarArr()}
+        </Days>
+      </CalendarTable>
+    </Container>
   );
 };
 
