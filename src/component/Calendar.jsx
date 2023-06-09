@@ -10,7 +10,7 @@ const Days = styled.tbody``;
 
 const Calendar = () => {
   const currentMonth = moment().format('YYYY-MM');
-  const [today, setMoment] = useState(moment(currentMonth));
+  const [today, setMoment] = useState(moment(currentMonth, 'YYYY-MM'));
   const firstWeek = today.clone().startOf('month').week();
   const lastWeek =
     today.clone().endOf('month').week() === 1
@@ -72,7 +72,7 @@ const Calendar = () => {
         </button>
         <button
           onClick={() => {
-            setMoment(moment());
+            setMoment(moment().format('YYYY-MM'));
           }}
         >
           {today.format('YYYY 년 MM 월')}
