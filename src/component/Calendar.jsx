@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from 'styled-components';
 import moment from 'moment/moment';
 import { useState } from 'react';
@@ -8,7 +9,8 @@ const CalendarTable = styled.table``;
 const Week = styled.tr``;
 const Days = styled.tbody``;
 
-const Calendar = () => {
+const Calendar = ({ holiday }) => {
+  console.log(holiday);
   const [today, setMoment] = useState(moment());
   const firstWeek = today.clone().startOf('month').week();
   const lastWeek =
@@ -32,15 +34,28 @@ const Calendar = () => {
                 .startOf('week')
                 .add(index, 'day');
 
-              if (moment().format('YYYYMMDD') === days.format('YYYYMMDD')) {
+              let isHoliday = false;
+              if (Array.isArray(holiday)) {
+                const holidayData = holiday.find(
+                  (item) => item.locdate === parseInt(days.format('YYYYMMDD'))
+                );
+                isHoliday = holidayData ? holidayData.isHoliday : false;
+              } else if (typeof holiday === 'object') {
+                isHoliday =
+                  holiday.locdate === parseInt(days.format('YYYYMMDD'))
+                    ? holiday.isHoliday
+                    : false;
+              }
+
+              if (days.format('MM') !== today.format('MM')) {
                 return (
-                  <td key={index}>
+                  <td key={index} style={{ backgroundColor: 'gray' }}>
                     <span>{days.format('D')}</span>
                   </td>
                 );
-              } else if (days.format('MM') !== today.format('MM')) {
+              } else if (isHoliday) {
                 return (
-                  <td key={index} style={{ backgroundColor: 'gray' }}>
+                  <td key={index} style={{ backgroundColor: 'red' }}>
                     <span>{days.format('D')}</span>
                   </td>
                 );

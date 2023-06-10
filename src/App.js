@@ -70,7 +70,7 @@ const SecondContainer = styled.div`
 
 function App() {
   const { element, onMoveToElement } = useMoveScroll();
-
+  const [holiday, setHoliday] = useState('');
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   console.log(setMonth, setYear);
@@ -87,7 +87,9 @@ function App() {
             month
           )}&ServiceKey=${process.env.REACT_APP_SERVICE_KEY}`
         );
-        return response.data.response.body.items;
+        console.log(data);
+        setHoliday(response.data.response.body.items.item);
+        return;
       } catch (error) {
         throw new Error(error.message);
       }
@@ -110,7 +112,6 @@ function App() {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-  console.log(data.item);
 
   return (
     <Main>
@@ -122,7 +123,7 @@ function App() {
         <MovePageButton onClick={onMoveToElement}>확인하러 가기</MovePageButton>
       </FirstContainer>
       <SecondContainer ref={element}>
-        <Calendar></Calendar>
+        <Calendar holiday={holiday}></Calendar>
       </SecondContainer>
     </Main>
   );
