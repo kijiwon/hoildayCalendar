@@ -9,8 +9,7 @@ const Week = styled.tr``;
 const Days = styled.tbody``;
 
 const Calendar = () => {
-  const currentMonth = moment().format('YYYY-MM');
-  const [today, setMoment] = useState(moment(currentMonth, 'YYYY-MM'));
+  const [today, setMoment] = useState(moment());
   const firstWeek = today.clone().startOf('month').week();
   const lastWeek =
     today.clone().endOf('month').week() === 1
@@ -35,7 +34,7 @@ const Calendar = () => {
 
               if (moment().format('YYYYMMDD') === days.format('YYYYMMDD')) {
                 return (
-                  <td key={index} style={{ backgroundColor: 'red' }}>
+                  <td key={index}>
                     <span>{days.format('D')}</span>
                   </td>
                 );
@@ -59,27 +58,26 @@ const Calendar = () => {
     return result;
   };
 
-  console.log(currentMonth);
   return (
     <Container>
       <Toolbar>
         <button
           onClick={() => {
-            setMoment(moment(today).subtract(1, 'month').format('YYYY-MM'));
+            setMoment(moment(today).subtract(1, 'month'));
           }}
         >
           이전달
         </button>
         <button
           onClick={() => {
-            setMoment(moment().format('YYYY-MM'));
+            setMoment(moment());
           }}
         >
           {today.format('YYYY 년 MM 월')}
         </button>
         <button
           onClick={() => {
-            setMoment(moment(today).add(1, 'month').format('YYYY-MM'));
+            setMoment(moment(today).add(1, 'month'));
           }}
         >
           다음달
