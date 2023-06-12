@@ -2,9 +2,19 @@
 import styled from 'styled-components';
 import moment from 'moment/moment';
 import { useState } from 'react';
+import {
+  MdOutlineKeyboardArrowLeft,
+  MdOutlineKeyboardArrowRight,
+} from 'react-icons/md';
 
 const Container = styled.main``;
-const Toolbar = styled.div``;
+const Toolbar = styled.div`
+  margin-bottom: 30px;
+  button {
+    border: none;
+    background-color: inherit;
+  }
+`;
 const CalendarTable = styled.table``;
 const Week = styled.tr``;
 const Days = styled.tbody``;
@@ -81,7 +91,7 @@ const Calendar = ({ holiday }) => {
             setMoment(moment(today).subtract(1, 'month'));
           }}
         >
-          이전달
+          <MdOutlineKeyboardArrowLeft />
         </button>
         <button
           onClick={() => {
@@ -95,7 +105,7 @@ const Calendar = ({ holiday }) => {
             setMoment(moment(today).add(1, 'month'));
           }}
         >
-          다음달
+          <MdOutlineKeyboardArrowRight />
         </button>
       </Toolbar>
       <CalendarTable>
