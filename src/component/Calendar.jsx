@@ -6,19 +6,59 @@ import {
   MdOutlineKeyboardArrowLeft,
   MdOutlineKeyboardArrowRight,
 } from 'react-icons/md';
-
-const Container = styled.main``;
+import { COLOR } from '../style/Theme';
+import { AiFillHeart } from 'react-icons/ai';
+const Container = styled.main`
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 const Toolbar = styled.div`
   margin-bottom: 30px;
+  text-align: center;
+  background-color: ${COLOR.main_yellow};
+  border-radius: 10px;
+  padding: 5px 3px 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   button {
     border: none;
+    border-radius: inherit;
     background-color: inherit;
+    font-weight: 600;
+    font-size: 18px;
+    :nth-of-type(2) {
+      margin-bottom: 3px;
+    }
   }
 `;
-const CalendarTable = styled.table``;
-const Week = styled.tr``;
+const CalendarTable = styled.table`
+  width: 80%;
+  min-height: 200px;
+  text-align: center;
+`;
+const Week = styled.tr`
+  font-size: 16px;
+  font-weight: 600;
+`;
 const Days = styled.tbody``;
 
+const Day = styled.span`
+  font-size: 16px;
+  height: 35px;
+  display: inline-block;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+`;
+const LastOrNextMonth = styled.td`
+  background-color: ${COLOR.button_shadow};
+`;
 const Calendar = ({ holiday }) => {
   console.log(holiday);
   const [today, setMoment] = useState(moment());
@@ -59,20 +99,23 @@ const Calendar = ({ holiday }) => {
 
               if (days.format('MM') !== today.format('MM')) {
                 return (
-                  <td key={index} style={{ backgroundColor: 'gray' }}>
-                    <span>{days.format('D')}</span>
-                  </td>
+                  <LastOrNextMonth key={index}>
+                    <Day style={{ color: 'white' }}>{days.format('D')}</Day>
+                  </LastOrNextMonth>
                 );
               } else if (isHoliday) {
                 return (
-                  <td key={index} style={{ backgroundColor: 'red' }}>
-                    <span>{days.format('D')}</span>
+                  <td key={index}>
+                    <Day>
+                      {days.format('D')}
+                      <AiFillHeart style={{ color: 'red' }} />
+                    </Day>
                   </td>
                 );
               } else {
                 return (
                   <td key={index}>
-                    <span>{days.format('D')}</span>
+                    <Day>{days.format('D')}</Day>
                   </td>
                 );
               }
@@ -111,13 +154,13 @@ const Calendar = ({ holiday }) => {
       <CalendarTable>
         <Days>
           <Week>
-            <th>일</th>
+            <th style={{ color: 'red' }}>일</th>
             <th>월</th>
             <th>화</th>
             <th>수</th>
             <th>목</th>
             <th>금</th>
-            <th>토</th>
+            <th style={{ color: 'blue' }}>토</th>
           </Week>
           {calendarArr()}
         </Days>
