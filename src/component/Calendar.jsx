@@ -61,12 +61,12 @@ const LastOrNextMonth = styled.td`
 `;
 const Calendar = ({ holiday }) => {
   console.log(holiday);
-  const [today, setMoment] = useState(moment());
-  const firstWeek = today.clone().startOf('month').week();
+  const [month, setMoment] = useState(moment());
+  const firstWeek = month.clone().startOf('month').week();
   const lastWeek =
-    today.clone().endOf('month').week() === 1
+    month.clone().endOf('month').week() === 1
       ? 53
-      : today.clone().endOf('month').week();
+      : month.clone().endOf('month').week();
 
   const calendarArr = () => {
     let result = [];
@@ -77,7 +77,7 @@ const Calendar = ({ holiday }) => {
           {Array(7)
             .fill(0)
             .map((data, index) => {
-              let days = today
+              let days = month
                 .clone()
                 .startOf('year')
                 .week(week)
@@ -97,7 +97,7 @@ const Calendar = ({ holiday }) => {
                     : false;
               }
 
-              if (days.format('MM') !== today.format('MM')) {
+              if (days.format('MM') !== month.format('MM')) {
                 return (
                   <LastOrNextMonth key={index}>
                     <Day style={{ color: 'darkgray' }}>{days.format('D')}</Day>
@@ -125,13 +125,13 @@ const Calendar = ({ holiday }) => {
     }
     return result;
   };
-
+  console.log(month.format('YYYY 년 MM 월'));
   return (
     <Container>
       <Toolbar>
         <button
           onClick={() => {
-            setMoment(moment(today).subtract(1, 'month'));
+            setMoment(moment(month).subtract(1, 'month'));
           }}
         >
           <MdOutlineKeyboardArrowLeft />
@@ -141,11 +141,11 @@ const Calendar = ({ holiday }) => {
             setMoment(moment());
           }}
         >
-          {today.format('YYYY 년 MM 월')}
+          {month.format('YYYY 년 MM 월')}
         </button>
         <button
           onClick={() => {
-            setMoment(moment(today).add(1, 'month'));
+            setMoment(moment(month).add(1, 'month'));
           }}
         >
           <MdOutlineKeyboardArrowRight />
