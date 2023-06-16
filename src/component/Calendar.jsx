@@ -100,7 +100,7 @@ const Calendar = ({ holiday }) => {
               if (days.format('MM') !== today.format('MM')) {
                 return (
                   <LastOrNextMonth key={index}>
-                    <Day style={{ color: 'white' }}>{days.format('D')}</Day>
+                    <Day style={{ color: 'darkgray' }}>{days.format('D')}</Day>
                   </LastOrNextMonth>
                 );
               } else if (isHoliday) {
