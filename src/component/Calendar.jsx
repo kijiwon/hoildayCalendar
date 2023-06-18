@@ -59,7 +59,7 @@ const Day = styled.span`
 const LastOrNextMonth = styled.td`
   background-color: ${COLOR.button_shadow};
 `;
-const Calendar = ({ holiday }) => {
+const Calendar = ({ holiday, setMonth }) => {
   console.log(holiday);
   const [month, setMoment] = useState(moment());
   const firstWeek = month.clone().startOf('month').week();
@@ -126,6 +126,7 @@ const Calendar = ({ holiday }) => {
     return result;
   };
   console.log(month.format('YYYY 년 MM 월'));
+  setMonth(month.format('MM'));
   return (
     <Container>
       <Toolbar>

@@ -77,7 +77,7 @@ function App() {
   const formatMonth = (month) => {
     return month < 10 ? '0' + month : month;
   };
-
+  console.log(month);
   const { isLoading, isError, data, error } = useQuery(
     ['date'],
     async () => {
@@ -123,7 +123,7 @@ function App() {
         <MovePageButton onClick={onMoveToElement}>확인하러 가기</MovePageButton>
       </FirstContainer>
       <SecondContainer ref={element}>
-        <Calendar holiday={holiday}></Calendar>
+        <Calendar holiday={holiday} setMonth={setMonth}></Calendar>
       </SecondContainer>
     </Main>
   );
