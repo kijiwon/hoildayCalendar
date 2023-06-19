@@ -64,6 +64,7 @@ const SecondContainer = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -77,7 +78,7 @@ function App() {
   const formatMonth = (month) => {
     return month < 10 ? '0' + month : month;
   };
-  console.log(month);
+  console.log(month, year);
   const { isLoading, isError, data, error } = useQuery(
     ['date'],
     async () => {
@@ -112,7 +113,7 @@ function App() {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-
+  console.log(holiday);
   return (
     <Main>
       <FirstContainer>
@@ -123,7 +124,34 @@ function App() {
         <MovePageButton onClick={onMoveToElement}>확인하러 가기</MovePageButton>
       </FirstContainer>
       <SecondContainer ref={element}>
-        <Calendar holiday={holiday} setMonth={setMonth}></Calendar>
+        <h2>어느달에 가장 많이 쉴 수 있을까?</h2>
+        <div>
+          <input type="text" placeholder="연도" />
+          <span>년</span>
+        </div>
+        <div>
+          <select>
+            <option defaultValue={'0'}>월</option>
+            <option value={'01'}>01</option>
+            <option value={'02'}>02</option>
+            <option value={'03'}>03</option>
+            <option value={'04'}>04</option>
+            <option value={'05'}>05</option>
+            <option value={'06'}>06</option>
+            <option value={'07'}>07</option>
+            <option value={'08'}>08</option>
+            <option value={'09'}>09</option>
+            <option value={'10'}>10</option>
+            <option value={'11'}>11</option>
+            <option value={'12'}>12</option>
+          </select>
+        </div>
+        <button>찾아보기</button>
+        <Calendar
+          holiday={holiday}
+          setMonth={setMonth}
+          setYear={setYear}
+        ></Calendar>
       </SecondContainer>
     </Main>
   );
