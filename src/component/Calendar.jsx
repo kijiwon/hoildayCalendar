@@ -62,6 +62,7 @@ const LastOrNextMonth = styled.td`
 const Calendar = ({ holiday, setMonth, setYear }) => {
   console.log(holiday);
   const [month, setMoment] = useState(moment());
+  console.log(month);
   const firstWeek = month.clone().startOf('month').week();
   const lastWeek =
     month.clone().endOf('month').week() === 1
@@ -126,7 +127,6 @@ const Calendar = ({ holiday, setMonth, setYear }) => {
     return result;
   };
 
-  console.log(typeof month.format('YYYY'));
   setYear(month.format('YYYY'));
   setMonth(month.format('MM'));
   return (
