@@ -90,9 +90,9 @@ function App() {
   const [holiday, setHoliday] = useState('');
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
-  const formatMonth = (month) => {
-    return month < 10 ? '0' + month : month;
-  };
+  // const formatMonth = (month) => {
+  //   return month < 10 ? '0' + month : month;
+  // };
   useEffect(() => {
     console.log('---새로고침---');
     console.log(month, year);
@@ -108,9 +108,7 @@ function App() {
   useEffect(() => {
     axios
       .get(
-        `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getHoliDeInfo?solYear=${year}&solMonth=${formatMonth(
-          month
-        )}&ServiceKey=${process.env.REACT_APP_SERVICE_KEY}`
+        `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?solYear=${year}&ServiceKey=${process.env.REACT_APP_SERVICE_KEY}`
       )
       .then((res) => {
         setHoliday(res.data.response.body.items.item);
@@ -159,12 +157,8 @@ function App() {
             </select>
           </SelectMonth>
         </SearchForm>
-        <button onClick={() => console.log(month)}>찾아보기</button>
-        <Calendar
-          holiday={holiday}
-          setMonth={setMonth}
-          setYear={setYear}
-        ></Calendar>
+        <button onClick={() => console.log(year, month)}>찾아보기</button>
+        <Calendar holiday={holiday}></Calendar>
       </SecondContainer>
     </Main>
   );

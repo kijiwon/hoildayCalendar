@@ -59,15 +59,14 @@ const Day = styled.span`
 const LastOrNextMonth = styled.td`
   background-color: ${COLOR.button_shadow};
 `;
-const Calendar = ({ holiday, setMonth, setYear }) => {
+const Calendar = ({ holiday }) => {
   console.log(holiday);
-  const [month, setMoment] = useState(moment());
-  console.log(month);
-  const firstWeek = month.clone().startOf('month').week();
+  const [CalendarMonth, setMoment] = useState(moment());
+  const firstWeek = CalendarMonth.clone().startOf('month').week();
   const lastWeek =
-    month.clone().endOf('month').week() === 1
+    CalendarMonth.clone().endOf('month').week() === 1
       ? 53
-      : month.clone().endOf('month').week();
+      : CalendarMonth.clone().endOf('month').week();
 
   const calendarArr = () => {
     let result = [];
@@ -78,8 +77,7 @@ const Calendar = ({ holiday, setMonth, setYear }) => {
           {Array(7)
             .fill(0)
             .map((data, index) => {
-              let days = month
-                .clone()
+              let days = CalendarMonth.clone()
                 .startOf('year')
                 .week(week)
                 .startOf('week')
@@ -98,7 +96,7 @@ const Calendar = ({ holiday, setMonth, setYear }) => {
                     : false;
               }
 
-              if (days.format('MM') !== month.format('MM')) {
+              if (days.format('MM') !== CalendarMonth.format('MM')) {
                 return (
                   <LastOrNextMonth key={index}>
                     <Day style={{ color: 'darkgray' }}>{days.format('D')}</Day>
@@ -127,14 +125,12 @@ const Calendar = ({ holiday, setMonth, setYear }) => {
     return result;
   };
 
-  setYear(month.format('YYYY'));
-  setMonth(month.format('MM'));
   return (
     <Container>
       <Toolbar>
         <button
           onClick={() => {
-            setMoment(moment(month).subtract(1, 'month'));
+            setMoment(moment(CalendarMonth).subtract(1, 'month'));
           }}
         >
           <MdOutlineKeyboardArrowLeft />
@@ -144,11 +140,11 @@ const Calendar = ({ holiday, setMonth, setYear }) => {
             setMoment(moment());
           }}
         >
-          {month.format('YYYY 년 MM 월')}
+          {CalendarMonth.format('YYYY 년 MM 월')}
         </button>
         <button
           onClick={() => {
-            setMoment(moment(month).add(1, 'month'));
+            setMoment(moment(CalendarMonth).add(1, 'month'));
           }}
         >
           <MdOutlineKeyboardArrowRight />
